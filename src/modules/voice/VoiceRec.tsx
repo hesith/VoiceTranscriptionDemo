@@ -1,28 +1,19 @@
-// VoiceInput.jsx
-import { useSpeechRecognition } from "./useSpeechRecognition";
+import type { FC } from "react";
+import { useWebSpeech } from "../../hooks/useWebSpeech";
+import { Record } from "./components/Record";
 
-export default function VoiceRec() {
-  const { transcript, listening, start, stop, error } =
-    useSpeechRecognition();
+interface VoiceRecProps {
+  title: string;
+  description?: string;
+}
+export const VoiceRec: FC<VoiceRecProps> = ({ title, description }) => {
+  const props = useWebSpeech();
 
   return (
-    <div style={{ maxWidth: 400 }}>
-      <button onClick={start} disabled={listening}>
-        🎤 Start
-      </button>
-      <button onClick={stop} disabled={!listening}>
-        ⏹ Stop
-      </button>
-
-      <textarea
-        rows={4}
-        value={transcript}
-        placeholder="Speak something..."
-        readOnly
-        style={{ width: "100%", marginTop: 10 }}
-      />
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div style={{ border: '1px dashed grey', borderRadius: 20, padding: 20 }}>
+      <h2>{title}</h2>
+      <h4>{description}</h4>
+      <Record {...props} />
     </div>
   );
 }

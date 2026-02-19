@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useWebSpeech({ lang = "en-US" } = {}) {
-  const recognitionRef = useRef(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const SpeechRecognition =
